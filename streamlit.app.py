@@ -18,9 +18,15 @@ def sign(inorup):
             if password == passwords(usernames.index(username)):
                 st.write("Welcome %s !" % username)
             else:
-                st.write("Your username or password is wrong, please try again!")
+                st.write("Your username or password is wrong, please try again! Or you can sign up.")
+                st.button("Sign up")
+                usernames.append(username)
+                passwords.append(password)
         else:
-            st.write("Your username or password is wrong, please try again!")
+            st.write("Your username or password is wrong, please try again! Or you can sign up.")
 
 if st.button("Sign in"):
     sign("in")
+
+if st.button("Sign up"):
+    sign("up")
