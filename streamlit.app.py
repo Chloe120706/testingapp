@@ -4,18 +4,16 @@ st.title(" My testing app:")
 st.write("Let's start !")
 usernames = ["123456"]
 passwords = ["123456"] 
-username = []
-password = []
-
 
 @st.dialog("Cast your vote")
 def sign(item):
     st.write(f"Sign{item}")
     username = st.text_input("Username:")
     password = st.text_input("Password:")
+    psindex = passwords.index(password)
     if st.button("Submit"):
         if username in usernames:
-            if password == passwords(usernames.index(username)):
+            if password == psindex:
                 st.session_state.sign = {"username": username}
                 st.rerun()
             else:
