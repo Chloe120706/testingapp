@@ -7,26 +7,33 @@ passwords = ["123456"]
 username = []
 password = []
 
-def sign(inorup):
-    st.dialog("Sign %s:" % inorup)
-    st.write("Username:")
-    username.append(st.text_input("Write your username."))
-    st.write("Password:")
-    password.append(st.text_input("Write your password."))
+
+@st.dialog("Cast your vote")
+def sign(item):
+    st.write(f"Sign{item}")
+    username = st.text_input("Username:")
+    password = st.text_input("Password:")
     if st.button("Submit"):
         if username in usernames:
             if password == passwords(usernames.index(username)):
-                st.write("Welcome %s !" % username)
+                st.session_state.sign = {"username": username}
+                st.rerun()
             else:
-                st.write("Your username or password is wrong, please try again! Or you can sign up.")
-                st.button("Sign up")
-                usernames.append(username)
-                passwords.append(password)
-        else:
-            st.write("Your username or password is wrong, please try again! Or you can sign up.")
+                st.wirte("Your username or password is wrong, please try again, or you can sign up.")
+    else:
+        if item == "up":
+            usernames.append(username)
+            passwords.append(password)
+            st.write("Please sign in again!")
+    st.write("Your username or password is wrong, please try again, or you can sign up.")
+       
 
-if st.button("Sign in"):
-    sign("in")
+if "sign" not in st.session_state:
+    if st.button("Sign in"):
+        sign("in")
+    if st.button("Sign up"):
+        sign("up")
+else:
+    st.write(f"Welcome {st.session_state.sign['item']}!")
+    
 
-if st.button("Sign up"):
-    sign("up")
